@@ -1,0 +1,153 @@
+# Parte 1 - Importação e exportação de dados
+
+Toda análise de dados vai ter início com a importação para Python dos dados necessários à análise a ser realizada. Para a importação de dados, existem diversas opções de bibliotecas a depender do formato do arquivo no qual os dados estão armazenados.
+
+Uma opção muito comum é termos dados armazenados em planilhas eletrônicas, em particular o Excel. Mas diversas outras opções de arquivos para armazenamento de dados existem como, por exemplo, `csv` e `json`.
+
+Para a importação de dados, o `{pandas}` é uma biblioteca muito utilizada, permitindo a leitura de dados em diferentes formatos, como texto, Excel, SQL, entre outros.
+
+Para a importação de dados no formato do Excel, o [`{pandas}`](https://pandas.pydata.org/) faz uso de bibliotecas específicas para este fim. Uma das mais utilizadas chama-se [`{openpyxl}`](https://openpyxl.readthedocs.io/en/stable/) (para o formato mais atual `xlsx`) e [`{xlrd}`](https://xlrd.readthedocs.io/en/latest/) (para o formato mais legado `xls`).
+
+Para instalar o `{pandas}` e `{openpyxl}`, você pode usar o gerenciador de pacotes pip. Observe que a sintaxe é bem simples. O comando -U no pip install é opcional e indica ao pip para atualizar os pacotes a serem instalados para a versão mais recente disponível. Se os pacotes já estiverem instalados, o pip irá verificar se há uma versão mais recente disponível no Python Package Index (PyPI). Se houver, o pip irá desinstalar as versões atualmente instaladas e instalar as versões mais recentes.
+
+```{python}
+#| eval: false
+
+!pip install -U pandas openpyxl xlrd
+```
+
+Depois de instalar as bibliotecas, é necessário importá-las para que suas funções sejam disponibilizadas para uso.
+
+```{python}
+# Importando a biblioteca Pandas
+import pandas as pd
+
+```
+
+Observe que a menos que queiramos utilizar diretamente a biblioteca `{openpyxl}`, não é necessário importá-la diretamente uma vez que o Pandas, quando necessitar realizar uma operação de leitura ou escrita para arquivos do Excel irá procurar, automaticamente, uma biblioteca instalada no sistema que sirva a este fim. No caso em tela, ele encontrará a biblioteca `{openpyxl}` e importará suas funcionalidades sem que precisemos fazê-lo de forma explícita.
+
+## Importação de dados contidos no Excel
+
+Para a importação de dados armazenados em arquivos Excel, o Pandas possui a função read_excel que permite a leitura de arquivos no formato xlsx.
+
+Vamos iniciar fazendo a importação dos dados contidos no arquivo excel `ISP2020.xlsx`, que contém 9 abas (ou planilhas). Estamos interessados nos dados da planilha "`GRUPOS`".
+
+Para fazer a importação dos dados, vamos utilizar a função `read_excel()` do pacote `pandas` que já foi anteriormente carregado.
+
+```{python}
+# Importando a planilha "GRUPOS"
+grupos = pd.read_excel("./dados/ISP2020.xlsx", sheet_name="GRUPOS")
+```
+
+::: callout-warning
+Caso tentem executar esse código com a planilha aberta vocês obterão uma mensagem de erro!
+:::
+
+Importado o conjunto de dados, é sempre recomendado dar uma conferida para ver se a importação ocorreu conforme esperado. Para fazer essa checagem, podemos utilizar as funções `info()`, `head()` e `tail()`.
+
+```{python}
+# Verificando as informações básicas do DataFrame
+print(grupos.info())
+```
+
+```{python}
+# Inspeção dos registros iniciais da base de dados
+print(grupos.head(2))
+```
+
+```{python}
+# Inspeção dos registros finais da base de dados
+print(grupos.tail(2))
+```
+
+Aparentemente, os dados foram importados sem maiores problemas.
+
+![](%22figuras/maozinha.png%22){width="10%"}
+
+::: callout-tip
+## Exercício
+
+1.  Importar os dados contidos na planilha `RESULTADO`. Fazer a inspeção dos dados conforme mostrado. Coloque os dados no objeto `resultado`.
+
+2.  Importar os dados contidos no arquivo `fundos_investimentos.xlsx`. Fazer a inspeção dos dados.
+:::
+
+```{python}
+#| echo: false
+#| include: false
+#| label: resolucao-exercicio-1
+
+# Resolução do Exercício 1
+
+# Importando os dados da planilha "RESULTADO"
+resultado = pd.read_excel("./dados/ISP2020.xlsx", sheet_name="RESULTADO")
+
+# Importando os dados do arquivo "fundos_investimentos.xlsx"
+fundos = pd.read_excel("./dados/fundos_investimentos.xlsx")
+
+# Descomente as linhas abaixo para fazer a inspeção dos dados
+# print(resultado.head())
+# print(resultado.tail())
+# print(fundos.head())
+# print(fundos.tail())
+```
+
+::: callout-tip
+## Desafio
+
+Importar os dados contidos no arquivo `UG123400_Jan18-Set18_Cta621201101.xls`. Coloque os dados no objeto `razao` e faça as checagens recomendadas.
+:::
+
+```{python}
+#| echo: false
+#| include: false
+#| label: resolucao-desafio-1
+
+# Resolução do Desafio
+
+# Importando os dados especificados do arquivo, 
+# renomeando as colunas após a importação
+
+nome_arq = "./dados/UG123400_Jan18-Set18_Cta621201101.xls"
+razao = pd.read_excel(nome_arq, header=None, skiprows=11, usecols="A:M")
+
+# Remove todas as eventuais linhas que estejam inteiramente vazias
+razao.dropna(how='all', inplace=True)
+
+# Remove todas as eventuais colunas que estejam inteiramente vazias
+razao.dropna(axis=1, how='all', inplace=True)
+
+# Atribui nomes às colunas
+razao.columns = ["data", "ug_emitente", "doc",
+                 "tp_doc", "evento", "vlr", "dc",
+                 "saldo", "ns", "estorno", "obs"]
+
+```
+
+## Exportando dados no formato Excel
+
+Para exportar dados que já estejam no Pyhton, não será necessário instalar nenhum pacote adicional uma vez que a biblioteca `{openpyxl}`, que utilizamos para importar dados do Excel, também possui a funcionalidade de exportação. De forma análoga à vista na seção anterior, o Pandas encapsula essa funcionalidade na função `write_excel()`
+
+Vamos exportar para uma planilha do excel o arquivo do razão contábil que acabamos de importar.
+
+```{python}
+#| eval: false
+#| label: exportando-dados-excel-write-excel
+
+pd.write_excel(razao, path="dados/razao.xlsx", index=False)
+
+```
+
+::: callout-tip
+No Python, os objetos possuem algumas funções a eles associadas. Essas funções são chamadas de **métodos**. No contexto do Pandas, os objetos que armazenam tabelas possuem o método `to_excel()` que poderia ter sido chamado alternativamente à função `write_excel`.
+:::
+
+O exemplo a seguir ilustra a exportação para o Excel por meio de uma chamada ao método `to_excel()` associado ao objeto `razao`.
+
+```{python}
+#| eval: false
+#| label: exportando-dados-excel-to-excel
+
+razao.to_excel(razao, path="dados/razao.xlsx", index=False)
+
+```

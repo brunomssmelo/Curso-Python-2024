@@ -1,0 +1,114 @@
+# Apresentação do Curso 
+
+## Objetivo
+
+Usando bases de dados reais, o objetivo do curso é mostrar como utilizar a _linguagem_ Python para fazer o gerenciamento dos dados. Esse processo também é conhecido por "data wrangling" e consiste em realizar a limpeza e pré-processamento de bases de dados de forma 
+a deixá-las "prontas" para o trabalho de modelagem e obtenção das respostas que se deseja obter com a análise dos dados.
+
+O curso tem foco nas bibliotecas Python como `{pandas}` e `{polars}` para manipulação de dados, além de `{matplotlib}` e `{plotly}` para visualização de dados.
+
+Algumas bibliotecas-chave em Python para essas tarefas incluem:
+- [`pandas`](https://pandas.pydata.org/)
+- [`polars`](https://github.com/pola-rs/polars)
+- [`matplotlib`](https://matplotlib.org/)
+- [`plotly`](https://plotly.com/)
+- [`numpy`](https://numpy.org/)
+- [`scipy`](https://www.scipy.org/)
+- [`scikit-learn`](https://scikit-learn.org/)
+
+## Exemplo de código em Pandas
+
+```{python}
+#| label: code-pandas
+#| fig-cap: "Exemplo usando a biblioteca Pandas"
+
+import pandas as pd
+
+# Criando um DataFrame de exemplo
+df = pd.DataFrame({
+    'nome': ['Alice', 'Bob', 'Carol'],
+    'idade': [25, 30, 35]
+})
+
+print(df)
+```
+
+{{< pagebreak >}}
+
+## Exemplo de código em Polars
+
+```{python}
+#| label: code-polars
+#| fig-cap: "Exemplo usando a biblioteca Polars"
+
+import polars as pl
+
+# Criando um DataFrame de exemplo
+df = pl.DataFrame({
+    'nome': ['Alice', 'Bob', 'Carol'],
+    'idade': [25, 30, 35]
+})
+
+print(df)
+```
+
+## Algumas referências bibliográficas
+
+Para quem tiver interesse em avançar no estudo do Python, seguem alguns materiais que podem ser úteis:
+
+- [Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)
+- [Pandas Documentation](https://pandas.pydata.org/docs/)
+- [Polars Documentation](https://pola-rs.github.io/polars-book/)
+- [Matplotlib Documentation](https://matplotlib.org/contents.html)
+- [Seaborn Documentation](https://seaborn.pydata.org/)
+
+## Conteúdo programático
+
+Este curso foi pensado com o objetivo de mostrar os aspectos práticos envolvidos no processo de análise de dados tendo um
+enfoque nas operações que usualmente são realizadas nas bases de dados objeto de análise.
+
+Este material está divido em cinco partes:
+
+Parte 1 - Importação e exportação dos dados   
+Parte 2 - Operações típicas em bases de dados   
+Parte 3 - Limpeza e arrumação dos dados   
+Parte 4 - Introdução à visualização de dados   
+Parte 5 - Análise exploratória e descritiva de dados   
+
+Essa divisão tem cunho meramente didático.
+
+## Bases de dados utilizadas
+
+Procuramos utilizar bases de dados semelhantes àquelas que o usuário possa lidar no seu dia a dia.
+
+Especificamente serão utilizadas ao longo dessa apostila  as seguintes bases de dados:
+
+* `ISP2020.xlsx` - esta base de dados, em formato do Excel, é disponibilizada pelo Mi\-nistério da Previdência Social e contém informações sobre o indicador de situação previdenciária de todos os Regimes Próprios de Previdência Social - RPPS do Brasil.
+
+* `fundos_investimentos.xlsx` - esta base de dados contêm uma relação de fundos de investimentos e seu enquadramento conforme norma do Conselho Monetário Nacional.
+
+* `UG123400_Jan18-Set18_Cta621201101.xls` - base de dados relativa ao razão contábil da conta 621201101 extraída da UG 23400 - RIOPREVIDENCIA.
+
+* `dair_br2023.Rds` - esta base de dados contém informações sobre os investimentos realizados pelos RPPS de todo o Brasil. Contêm informações
+para o ano de 2023. Foi obtida a partir da API do CADPREV.
+
+## O processo de análise de dados
+
+A análise de dados pode ser vista como um processo onde o analista, partindo de uma questão que quer responder a partir da análise dos dados, identifica os dados necessários e faz a **importação** desses dados para o Python (naturalmente pode ser utilizada qualquer outra 
+linguagem de programação ou _softawre_ para análise de dados). 
+
+Usualmente esses dados não estarão organizados num formato no qual já seja possível realizar análises, sendo frequentemente necessário **arrumar**, **organizar** (do inglês, _tidy up the data_) esses dados. 
+
+Então o analista pode identificar a necessidade de **transformar** algumas variáveis da base de dados e **combinar** a base com outras, para gerar mais informações. 
+
+A identificação de relações entre as variáveis da base de dados, sua distribuiçõo, a possível identificação de valores atípicos, a obtenção de novos _insights_, podem ser enormemente
+facilitados com a **visualização** dos dados.
+
+Com isso o analista já está em condições de criar **modelos** que expliquem o comportamento observado das variáveis e certamente deverá **reportar**, **comunicar**, esses resultados a outras pessoas interessadas na resposta à questão que motivou toda a análise conduzida pelo analista.
+
+Todo esse processo pode ser sintetizado na seguinte figura:[^1]
+
+[^1]: Fonte: [R for Data Science, 2nd Ed.](https://r4ds.hadley.nz/)
+
+
+![](figuras/data_science_process.png)

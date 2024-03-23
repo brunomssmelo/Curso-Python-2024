@@ -1,0 +1,29 @@
+---
+title: "Usando Python para Gerenciar Dados"
+lang: pt
+author: 
+    - Marcos F. Silva
+    - Bruno M. S. S. Melo
+    - João Paulo de F. Ramirez
+date: last-modified
+date-format: long
+toc: true
+format: pdf
+editor: source
+jupyter: python3
+---
+
+```{python}
+#| echo: false
+#| include: false
+import warnings
+warnings.filterwarnings('ignore')
+```
+
+{{< pagebreak >}}
+
+{{< include apresentacao_python.qmd >}}
+
+{{< pagebreak >}}
+
+{{< include parte1_python.qmd >}}
