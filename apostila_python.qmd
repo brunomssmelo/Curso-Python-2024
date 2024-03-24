@@ -27,3 +27,7 @@ warnings.filterwarnings('ignore')
 {{< pagebreak >}}
 
 {{< include parte1_python.qmd >}}
+
+{{< pagebreak >}}
+
+{{< include parte2_python.qmd >}}
